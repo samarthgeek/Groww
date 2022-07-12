@@ -1,5 +1,6 @@
+import moment from 'moment';
 import {mockData, SYMBOLS} from './constants';
-import {StockData} from './types';
+import {Filter, RangedData, StockData} from './types';
 
 /**
  *  Generate mock stock data for Home Sceen
@@ -13,6 +14,38 @@ export const getLatestData = async (symbol: SYMBOLS): Promise<StockData> => {
     rate,
     symbol,
   };
+};
+
+/**
+ *  Generate mock stock data range on basis of time filter
+ */
+export const getRangedData = async (
+  amount: number,
+  filter: Filter = 'DAY',
+): Promise<RangedData[]> => {
+  // await wait;
+  let unit: moment.unitOfTime.DurationAs;
+  switch (filter) {
+    case 'DAY':
+      unit = 'minutes';
+      break;
+
+    case 'WEEK':
+      unit = 'hours';
+      break;
+
+    case 'MONTH':
+      unit = 'days';
+      break;
+
+    default:
+      unit = 'minutes';
+      break;
+  }
+  return [...Array(50)].map((_, i) => ({
+    date: moment().subtract(5 * i, unit),
+    value: generateNumber(amount - 20, amount),
+  }));
 };
 
 /**
