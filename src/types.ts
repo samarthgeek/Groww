@@ -1,12 +1,18 @@
-import {Moment} from 'moment';
 import {SYMBOLS} from './constants';
 
 export interface StockData {
   close: number | null;
-  date: Moment;
+  date: moment.Moment;
   exchange: string | null;
   high: number | null;
   low: number | null;
   rate: number;
   symbol: SYMBOLS;
 }
+
+export interface RangedData {
+  date: moment.Moment;
+  value: number;
+}
+
+export type Filter = 'DAY' | 'MONTH' | 'WEEK';

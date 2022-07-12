@@ -14,7 +14,7 @@ interface Props {
 const HomeScreen = ({navigation}: Props) => {
   return (
     <SafeAreaView style={{backgroundColor: 'black', flex: 1}}>
-      <View style={{backgroundColor: 'black', flex: 1}}>
+      <View style={{flex: 1}}>
         <Header />
         <Divider backgroundColor={'warmGray.700'} my={2} />
         <HStack justifyContent={'space-between'} m={'10px'}>

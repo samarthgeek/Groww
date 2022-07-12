@@ -3,6 +3,7 @@ import {NavigationProp} from '@react-navigation/native';
 import {Pressable, Skeleton, Text} from 'native-base';
 import React, {Fragment, useEffect, useState} from 'react';
 import {View} from 'react-native';
+import {setCurrentStock} from '../Cache';
 import {mockData, STOCK_NAME, SYMBOLS} from '../constants';
 import {formatCurrency, getLatestData} from '../functions';
 import {StockData} from '../types';
@@ -17,7 +18,6 @@ type BoxState = 'INIT' | 'LOADING' | 'LOADED';
 const InfoCard = ({symbol, navigation}: Props) => {
   const [state, setState] = useState<BoxState>('INIT');
   const [data, setData] = useState<StockData>(mockData);
-  console.log(data);
   useEffect(() => {
     loadData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -28,6 +28,11 @@ const InfoCard = ({symbol, navigation}: Props) => {
     const latestData = await getLatestData(symbol);
     setData(latestData);
     setState('LOADED');
+  };
+
+  const onCardPress = () => {
+    setCurrentStock(data);
+    navigation.navigate('StockInfo');
   };
 
   let content;
@@ -48,7 +53,7 @@ const InfoCard = ({symbol, navigation}: Props) => {
       content = (
         <Fragment>
           <Text fontWeight={'semibold'} color={'white'}>
-            {data ? STOCK_NAME[data.symbol].toUpperCase() : null}
+            {STOCK_NAME[data.symbol].toUpperCase()}
           </Text>
           <View style={{marginTop: 'auto'}}>
             <Text fontSize={'12px'} fontWeight="semibold" color={'white'}>
@@ -71,9 +76,7 @@ const InfoCard = ({symbol, navigation}: Props) => {
   }
   return (
     <Pressable
-      onPress={
-        state === 'LOADING' ? null : () => navigation.navigate('StockInfo')
-      }
+      onPress={state === 'LOADING' ? null : onCardPress}
       backgroundColor={'dark.50'}
       borderRadius={10}
       py={'15px'}
