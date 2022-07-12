@@ -1,3 +1,6 @@
+import moment from 'moment';
+import {StockData} from './types';
+
 export enum SYMBOLS {
   MSFT = 'MSFT',
   AAPL = 'AAPL',
@@ -16,4 +19,14 @@ export const STOCK_NAME: Record<SYMBOLS, string> = {
   GOOGL: 'Google',
   MSFT: 'Microsoft',
   VOD: 'Vodafone',
+};
+
+export const mockData: StockData = {
+  close: null,
+  date: moment(),
+  exchange: null,
+  high: null,
+  low: null,
+  rate: 30,
+  symbol: SYMBOLS.AAPL,
 };

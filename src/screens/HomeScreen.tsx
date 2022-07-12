@@ -1,28 +1,17 @@
+/* eslint-disable react-native/no-inline-styles */
+import {NavigationProp} from '@react-navigation/native';
 import {Button, Divider, HStack, ScrollView, Text} from 'native-base';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {SafeAreaView, View} from 'react-native';
 import Header from '../components/Header';
 import InfoCard from '../components/InfoCard';
-import {STOCK_NAME} from '../constants';
+import {STOCK_NAME, SYMBOLS} from '../constants';
 
 interface Props {
-  navigation: any;
+  navigation: NavigationProp<any>;
 }
 
 const HomeScreen = ({navigation}: Props) => {
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    // await fetch(
-    //   'http://api.marketstack.com/v1/eod?access_key=9955ba1f763052d3d2a6a73567be095c&symbols=AAPL',
-    // )
-    //   .then(async res => {
-    //     console.log((await res.json()).data);
-    //   })
-    //   .catch(e => console.log('e', e));
-  };
   return (
     <SafeAreaView style={{backgroundColor: 'black', flex: 1}}>
       <View style={{backgroundColor: 'black', flex: 1}}>
@@ -44,8 +33,8 @@ const HomeScreen = ({navigation}: Props) => {
         </HStack>
         <ScrollView horizontal={true} ml={'10px'} mt={'10px'}>
           {Object.keys(STOCK_NAME).map(stock => (
-            <View style={{marginRight: 15}}>
-              <InfoCard symbol={stock} />
+            <View key={stock} style={{marginRight: 15}}>
+              <InfoCard navigation={navigation} symbol={stock as SYMBOLS} />
             </View>
           ))}
         </ScrollView>
