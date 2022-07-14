@@ -19,10 +19,10 @@ export const getLatestData = async (symbol: SYMBOLS): Promise<StockData> => {
 /**
  *  Generate mock stock data range on basis of time filter
  */
-export const getRangedData = async (
+export const getRangedData = (
   amount: number,
   filter: Filter = 'DAY',
-): Promise<RangedData[]> => {
+): RangedData[] => {
   // await wait;
   let unit: moment.unitOfTime.DurationAs;
   switch (filter) {

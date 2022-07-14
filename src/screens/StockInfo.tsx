@@ -4,6 +4,7 @@ import {Button, ScrollView, Text} from 'native-base';
 import React from 'react';
 import {SafeAreaView, View} from 'react-native';
 import Cache from '../Cache';
+import Graph from '../components/Graph';
 import {STOCK_NAME} from '../constants';
 import {formatCurrency} from '../functions';
 
@@ -28,7 +29,7 @@ const StockInfo = ({navigation}: Props) => {
             {STOCK_NAME[data.symbol].toUpperCase()}
           </Text>
           <Text
-            letterSpacing={1.5}
+            letterSpacing={1}
             mx={3}
             fontSize={'xl'}
             fontWeight="semibold"
@@ -43,6 +44,7 @@ const StockInfo = ({navigation}: Props) => {
             {data.rate < 30 ? '-' : '+'}
             {data.rate} (0.45%)
           </Text>
+          <Graph />
         </ScrollView>
       </View>
     </SafeAreaView>
